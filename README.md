@@ -46,12 +46,6 @@ LLM_MODEL=gpt-4o-mini
 python main.py
 ```
 
-Or via `run.sh` (with SOCKS proxy):
-
-```bash
-chmod +x run.sh
-./run.sh
-```
 
 ## Bot Commands
 
