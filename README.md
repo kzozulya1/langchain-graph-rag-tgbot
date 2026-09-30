@@ -1,32 +1,32 @@
-# Telegram Bot с Graph RAG (LightRAG)
+# Telegram Bot with Graph RAG (LightRAG)
 
-Telegram-бот для загрузки текстовых документов и вопросов по ним через Graph RAG (LightRAG).
+Telegram bot for uploading text documents and querying them via Graph RAG (LightRAG).
 
-## Возможности
+## Features
 
-- Загрузка текстовых файлов (.txt, .md, .py, .csv, .json, .html, .xml, .log) до 10 КБ
-- Вопросы по загруженным документам в свободной форме
-- Графовый RAG через LightRAG API (hybrid query)
-- Очистка всех данных (`/clear`)
+- Upload text files (.txt, .md, .py, .csv, .json, .html, .xml, .log) up to 10 KB
+- Free-form questions over uploaded documents
+- Graph RAG via LightRAG API (hybrid query)
+- Clear all data (`/clear`)
 
-## Требования
+## Requirements
 
 - Python 3.10+
-- Запущенный LightRAG сервер (по умолчанию `http://localhost:9621`)
-- OpenAI-compatible API ключ
+- Running LightRAG server (default `http://localhost:9621`)
+- OpenAI-compatible API key
 
-## Установка
+## Installation
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Настройка
+## Setup
 
-Скопируйте `.env.example` в `.env` и заполните:
+Copy `.env.example` to `.env` and fill in:
 
 ```env
-# Telegram Bot Token (от @BotFather)
+# Telegram Bot Token (from @BotFather)
 TELEGRAM_BOT_TOKEN=your_telegram_bot_token_here
 
 # LightRAG Server
@@ -36,46 +36,46 @@ LIGHTRAG_API_URL=http://localhost:9621
 OPENAI_BASE_URL=https://api.openai.com/v1
 OPENAI_API_KEY=your_openai_api_key_here
 
-# LLM модель
+# LLM Model
 LLM_MODEL=gpt-4o-mini
 ```
 
-## Запуск
+## Running
 
 ```bash
 python main.py
 ```
 
-Или через `run.sh` (с SOCKS-прокси):
+Or via `run.sh` (with SOCKS proxy):
 
 ```bash
 chmod +x run.sh
 ./run.sh
 ```
 
-## Команды бота
+## Bot Commands
 
-| Команда / действие | Описание |
+| Command / Action | Description |
 |---|---|
-| `/start` | Приветствие и инструкция |
-| `/clear` | Очистить все данные LightRAG |
-| Отправка файла | Загрузить текстовый документ для индексации |
-| Текстовое сообщение | Задать вопрос по загруженным документам |
+| `/start` | Greeting and instructions |
+| `/clear` | Clear all LightRAG data |
+| Send a file | Upload a text document for indexing |
+| Send text | Ask a question about uploaded documents |
 
-## Архитектура
+## Architecture
 
 ```
 Telegram Bot
-    ├── python-telegram-bot  →  обработчик сообщений
+    ├── python-telegram-bot  →  message handler
     ├── httpx               →  LightRAG API (auth, upload, query)
-    └── langchain-openai    →  LLM для генерации ответов
+    └── langchain-openai    →  LLM for answer generation
 ```
 
-Бот аутентифицируется в LightRAG по логину/паролю, загружает документы через `/documents/text` и выполняет hybrid-запросы через `/query`. Если LightRAG возвращает готовый ответ — он отправляется напрямую; иначе контекст из источников обрабатывается через LLM.
+The bot authenticates with LightRAG via login/password, uploads documents through `/documents/text`, and performs hybrid queries via `/query`. If LightRAG returns a direct answer, it is sent as-is; otherwise the retrieved context is processed through the LLM.
 
-## Зависимости
+## Dependencies
 
-| Пакет | Версия |
+| Package | Version |
 |---|---|
 | python-telegram-bot | 21.9 |
 | langchain | 0.3.13 |
